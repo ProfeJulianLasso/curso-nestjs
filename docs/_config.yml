@@ -1,6 +1,6 @@
-# markdown: kramdown
-show_excerpts: false
-theme: minima
-# remote_theme: pages-themes/minimal@v0.2.0
-# plugins:
-# - jekyll-remote-theme
+markdown: kramdown
+# show_excerpts: false
+# theme: minima
+remote_theme: ProfeJulianLasso/minimal-for-teacherpath@v0.2.0
+plugins:
+- jekyll-remote-theme
