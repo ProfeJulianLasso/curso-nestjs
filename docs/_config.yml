@@ -1,6 +1,4 @@
 markdown: kramdown
-# show_excerpts: false
-# theme: minima
 remote_theme: ProfeJulianLasso/minimal-for-teacherpath
 plugins:
 - jekyll-remote-theme
