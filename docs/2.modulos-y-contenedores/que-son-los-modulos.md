@@ -38,4 +38,3 @@ export class AppModule {}
 En Nest, **cuando se crea un módulo, este encapsula los proveedores de manera predeterminada**, lo anterior significa que es imposible inyectar un proveedor que no sea parte directamente del módulo actual, ni son exportados desde los módulos importados. Por lo tanto, se puede considerar los proveedores exportados de un módulo como la interfaz pública del módulo o API.
 
 ## Características de los módulos
-

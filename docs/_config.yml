@@ -1,4 +1,4 @@
 markdown: kramdown
 remote_theme: ProfeJulianLasso/minimal-for-teacherpath
 plugins:
-- jekyll-remote-theme
+  - jekyll-remote-theme
