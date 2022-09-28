@@ -1,6 +1,7 @@
 # Qué son los módulos
 
 ![Diagrama de módulos](../assets/Modules_1.png "Diagrama de módulos")
+
 Fuente: (<https://docs.nestjs.com/modules>)
 
 Los módulos **son clases apoyadas en el decorador `@Module`**, el cual, proporciona metadatos a Nest, los cuales, son utilizados para organizar la estructura de la aplicación.
