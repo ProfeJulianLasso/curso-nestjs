@@ -1,3 +1,4 @@
+(setq markdown-css-paths '("../assets/css/style.css"))
 # Qué son los módulos
 
 ![Diagrama de módulos](../assets/Modules_1.png "Diagrama de módulos")
