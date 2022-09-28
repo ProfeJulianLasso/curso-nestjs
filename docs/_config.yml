@@ -1,8 +1,4 @@
-markdown: kramdown
-title:
-author:
-  name: ProfeJulianLasso
-  email: julian.lasso@sofka.com.co
+# markdown: kramdown
 show_excerpts: false
 theme: minima
 # remote_theme: pages-themes/minimal@v0.2.0
