@@ -1,13 +1,3 @@
-<style>
-    code {
-        color: #23241f !important;
-        background-color: #f5f5f5 !important;
-        font-family: 'Courier New', Courier, monospace !important;
-    }
-    p:has(img) {
-        text-align: center;
-    }
-</style>
 # Qué son los módulos
 
 ![Diagrama de módulos](https://profejulianlasso.github.io/curso-nestjs/assets/Modules_1.png "Diagrama de módulos")
@@ -91,3 +81,59 @@ En Nest, **los módulos utilizan el patrón singleton por defecto**, y por ende,
 Fuente: (<https://docs.nestjs.com/modules#shared-modules>)
 
 Cada módulo en Nest cuando se crea, automáticamente es un módulo compartido, es decir, puede ser reutilizado en cualquier otro módulo. Imagine que desea compartir el servicio `UserService` que se dispone en el módulo `UserModule`, entonces, la forma correcta es importar dicho servicio en el área de providers y luego exportarlo en el área de exports dentro del módulo `UserModule`.
+
+```typescript
+import { Module } from '@nestjs/common';
+import { UserController } from './controllers/user.controller';
+import { UserService } from './services/user.service';
+
+@Module({
+    controllers: [UserController],
+    providers: [UserService],
+    exports: [UserService],
+})
+export class UserModule {}
+```
+
+Dado lo anterior, cualquier módulo que importe el módulo `UserModule`, podrá usar el servicio `UserService` y compartirá la misma instancia con todos los módulos que importen `UserModule`.
+
+## Exportación de los módulos
+
+**Así como un módulo puede exportar sus proveedores internos, también se pueden exportar los módulos que se importan.** En el siguiente ejemplo, se muestra cómo el módulo `CommonModule` es importado y exportado desde el `CoreModule`, de tal forma que, otros módulos puedan usar el módulo `CommonModule` con tan sólo importar el módulo `CoreModule`.
+
+```typescript
+import { Module } from '@nestjs/common';
+import { CommonModule } from './common/common.module';
+
+@Module({
+    imports: [CommonModule]
+    exports: [CommonModule],
+})
+export class CoreModule {}
+```
+
+## Módulos globales
+
+A veces suele pasar que existe algún módulo o grupo de módulos que siempre estamos importando por todas partes y esto puede convertirse en algo tedioso así sea que agrupamos todo en un sólo módulo y este sea llamado por todas partes. A lo anterior le sumamos el tema de que Nest encapsula proveedores, módulos y demás dentro del ámbito del módulo, es decir, **no se puede usar los proveedores, módulos y demás en otro lugar sin antes importar el módulo que los encapsule.**
+
+Cuando se quiera proporcionar un conjunto de proveedores, módulos y demás, como elementos disponibles de forma global en toda la aplicación, como por ejemplo, helpers, configuraciones de conexión a bases de datos, entre otros, entonces **se puede hacer que el módulo sea global por medio del decorador `@Global`.**
+
+```typescript
+import { Module, Global } from '@nestjs/common';
+import { UserController } from './controllers/user.controller';
+import { UserService } from './services/user.service';
+
+@Global()
+@Module({
+    controllers: [UserController],
+    providers: [UserService],
+    exports: [UserService],
+})
+export class UserModule {}
+```
+
+El decorador `@Global` hace que el módulo señalado tenga un alcance global. Se debe saber que **los módulos globales deben ser importados sólo una vez**, por lo general son importados por el módulo principal de la aplicación desarrollada.
+
+En el ejemplo del código anterior, el servicio `UserService` será global y los módulos que deseen inyectar el servicio no necesitarán importar el módulo `UserModule` en su área de imports.
+
+**NOTA IMPORTANTE**, hacer que todo sea global no es una buena idea desde el punto de vista del diseño de arquitectura. Los módulos globales existen en Nest para reducir la cantidad de importaciones repetidas que se puedan generar en todo el sistema desarrollado. La mejor práctica es literalmente hacer uso del área de `imports` en los módulos que requiera la importación.
