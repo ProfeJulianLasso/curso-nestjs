@@ -54,6 +54,7 @@ import { UserService } from './services/user.service';
 })
 export class UserModule {}
 ```
+
 Dado lo anterior la forma de importar el `UserModule` en el módulo principal, sería la siguiente:
 
 `app.module.ts`
@@ -68,4 +69,5 @@ export class AppModule {}
 ```
 
 Y así es como se podría ver la estructura de carpetas para con dicho módulo.
+
 ![Estructura de carpetas](../assets/estructura_1.png "Estructura de carpetas")
