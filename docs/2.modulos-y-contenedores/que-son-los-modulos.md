@@ -39,4 +39,33 @@ export class AppModule {}
 En Nest, **cuando se crea un módulo, este encapsula los proveedores de manera predeterminada**, lo anterior significa que es imposible inyectar un proveedor que no sea parte directamente del módulo actual, ni son exportados desde los módulos importados. Por lo tanto, se puede considerar los proveedores exportados de un módulo como la interfaz pública del módulo o API.
 
 ## Características de los módulos
+
+Dando por cierto que, `UserController` y `UserService` pertenecen al mismo dominio de aplicación, tiene sentido moverlos a un módulo llamado `UserModule`. Lo anterior ayuda a gestionar la complejidad de la aplicación y a desarrollarla con los principios SOLID.
+
+`user/user.module.ts`
+```typescript
+import { Module } from '@nestjs/common';
+import { UserController } from './controllers/user.controller';
+import { UserService } from './services/user.service';
+
+@Module({
+    controllers: [UserController],
+    providers: [UserService],
+})
+export class UserModule {}
+```
+Dado lo anterior la forma de importar el `UserModule` en el módulo principal, sería la siguiente:
+
+`app.module.ts`
+```typescript
+import { Module } from '@nestjs/common';
+import { UserModule } from './user/user.module';
+
+@Module({
+    imports: [UserModule],
+})
+export class AppModule {}
+```
+
+Y así es como se podría ver la estructura de carpetas para con dicho módulo.
 ![Estructura de carpetas](../assets/estructura_1.png "Estructura de carpetas")
