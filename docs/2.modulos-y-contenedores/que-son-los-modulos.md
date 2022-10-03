@@ -1,6 +1,16 @@
+<style>
+    code {
+        color: #23241f !important;
+        background-color: #f5f5f5 !important;
+        font-family: 'Courier New', Courier, monospace !important;
+    }
+    p:has(img) {
+        text-align: center;
+    }
+</style>
 # Qué son los módulos
 
-![Diagrama de módulos](../assets/Modules_1.png "Diagrama de módulos")
+![Diagrama de módulos](https://profejulianlasso.github.io/curso-nestjs/assets/Modules_1.png "Diagrama de módulos")
 
 Fuente: (<https://docs.nestjs.com/modules>)
 
@@ -12,7 +22,7 @@ Normalmente las aplicaciones pequeñas suelen tener sólo el módulo principal, 
 
 Para crear un módulo por medio del CLI de Nest, es necesario abrir la consola y digitar el siguiente comando `nest generate module [NOMBRE DEL MODULO]`, situado en la raíz, no del proyecto, sino, del código fuente del aplicativo.
 
-![Generación de un módulo en consola](../assets/generar-modulo-cli.png "Generación de un módulo en consola")
+![Generación de un módulo en consola](https://profejulianlasso.github.io/curso-nestjs/assets/generar-modulo-cli.png "Generación de un módulo en consola")
 
 El decorador `@Module` toma un único objeto, el cual, sus propiedades describen el módulo.
 
@@ -70,4 +80,14 @@ export class AppModule {}
 
 Y así es como se podría ver la estructura de carpetas para con dicho módulo.
 
-![Estructura de carpetas](../assets/estructura_1.png "Estructura de carpetas")
+![Estructura de carpetas](https://profejulianlasso.github.io/curso-nestjs/assets/estructura_1.png "Estructura de carpetas")
+
+## Módulos compartidos
+
+En Nest, **los módulos utilizan el patrón singleton por defecto**, y por ende, se puede compartir la misma instancia de cualquier proveedor entre múltiples módulos.
+
+![Módulos compartidos](https://profejulianlasso.github.io/curso-nestjs/assets/Shared_Module_1.png "Módulos compartidos")
+
+Fuente: (<https://docs.nestjs.com/modules#shared-modules>)
+
+Cada módulo en Nest cuando se crea, automáticamente es un módulo compartido, es decir, puede ser reutilizado en cualquier otro módulo. Imagine que desea compartir el servicio `UserService` que se dispone en el módulo `UserModule`, entonces, la forma correcta es importar dicho servicio en el área de providers y luego exportarlo en el área de exports dentro del módulo `UserModule`.
